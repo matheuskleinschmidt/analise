@@ -1,0 +1,124 @@
+CREATE TABLE Estudante (
+    EstudanteID SERIAL PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Curso VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Instrutor (
+    InstrutorID SERIAL PRIMARY KEY,
+    Curso VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Aula (
+    AulaID SERIAL PRIMARY KEY,
+    Instituicao VARCHAR(100) NOT NULL,
+    Cidade VARCHAR(100) NOT NULL,
+    Estado VARCHAR(2) NOT NULL
+);
+
+CREATE TABLE Aulas_assistidas (
+    EstudanteID INT REFERENCES Estudante(EstudanteID),
+    InstrutorID INT REFERENCES Instrutor(InstrutorID),
+    AulaID INT REFERENCES Aula(AulaID),
+    Notas DECIMAL(5, 2),
+    PRIMARY KEY (EstudanteID, InstrutorID, AulaID)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Inserindo dados na tabela Estudante
+INSERT INTO Estudante (Nome, Curso)
+VALUES 
+('Ana Silva', 'Engenharia de Software'),
+('Bruno Santos', 'Ciência da Computação'),
+('Carlos Oliveira', 'Administração'),
+('Daniela Pereira', 'Sistemas de Informação'),
+('Eduardo Costa', 'Engenharia Elétrica');
+
+-- Inserindo dados na tabela Instrutor
+INSERT INTO Instrutor (Curso)
+VALUES 
+('Engenharia de Software'),
+('Ciência da Computação'),
+('Administração'),
+('Sistemas de Informação'),
+('Engenharia Elétrica');
+
+-- Inserindo dados na tabela Aula
+INSERT INTO Aula (Instituicao, Cidade, Estado)
+VALUES 
+('Universidade Federal de Santa Catarina', 'Florianópolis', 'SC'),
+('Universidade da Região de Joinville', 'Joinville', 'SC'),
+('Universidade de São Paulo', 'São Paulo', 'SP'),
+('Universidade Federal do Paraná', 'Curitiba', 'PR'),
+('Universidade da Região de Joinville', 'Joinville', 'SC'); -- Repetido para atender ao requisito
+
+-- Inserindo dados na tabela Aulas_assistidas
+INSERT INTO Aulas_assistidas (EstudanteID, InstrutorID, AulaID, Notas)
+VALUES 
+(1, 1, 1, 8.5), -- Ana Silva, Eng. de Software, UFSC - Florianópolis
+(2, 2, 2, 9.0), -- Bruno Santos, Ciência da Computação, Univille - Joinville
+(3, 3, 3, 7.5), -- Carlos Oliveira, Administração, USP - São Paulo
+(4, 4, 4, 6.8), -- Daniela Pereira, Sistemas de Informação, UFPR - Curitiba
+(5, 5, 5, 9.2), -- Eduardo Costa, Eng. Elétrica, Univille - Joinville
+(1, 2, 2, 8.0); -- Ana Silva, Ciência da Computação, Univille - Joinville
+
+
+
+
+
+
+
+
+
+
+
+-- Inserindo um novo estudante que não tem o mesmo curso que o instrutor
+INSERT INTO Estudante (Nome, Curso)
+VALUES 
+('Fábio Lima', 'Ciência da Computação');
+
+-- Inserindo um novo instrutor com um curso diferente do estudante
+INSERT INTO Instrutor (Curso)
+VALUES 
+('Engenharia de Software');
+
+-- Inserindo uma nova aula em Santa Catarina (SC)
+INSERT INTO Aula (Instituicao, Cidade, Estado)
+VALUES 
+('Universidade da Região de Joinville', 'Joinville', 'SC');
+
+-- Associando o estudante, instrutor e aula com uma nota acima de 70
+INSERT INTO Aulas_assistidas (EstudanteID, InstrutorID, AulaID, Notas)
+VALUES 
+(6, 6, 6, 7.5);  -- Fábio Lima, Engenharia de Software, Joinville - SC
+
+
+
+
+
+
+
+
+
+
+
+
+
